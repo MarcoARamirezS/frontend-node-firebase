@@ -44,7 +44,8 @@ export default {
         })
         this.$router.push('/principal')
       } catch (error) {
-        const errorMessage = error.respose?.data?.message || 'Ocurrio un error al tratar de ingresar'
+        console.log('@@@ error => ', error)
+        const errorMessage = error.response?.data?.message || 'Ocurrio un error al tratar de ingresar'
         this.$store.dispatch('alert/triggerAlert', {
           message: errorMessage,
           type: 'error'
