@@ -1,9 +1,8 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
-  // Configuración para Azure Static Web Apps
-  target: 'static', // Asegura que Nuxt genere archivos estáticos
-  ssr: false, // Desactiva el renderizado del lado del servidor
+  target: 'static', // Genera archivos estáticos para Azure
+  ssr: false, // Desactiva SSR, ya que no es compatible con Azure Static Web Apps
 
   head: {
     titleTemplate: '%s - frontend-node-firebase',
@@ -14,7 +13,7 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      { hid: 'description', name: 'description', content: 'Frontend de Node y Firebase' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
@@ -41,7 +40,7 @@ export default {
   ],
 
   axios: {
-    baseURL: process.env.BASE_URL || 'https://test-backend-acdghwgtbhh0bzee.canadacentral-01.azurewebsites.net/api' // Base URL para llamadas a API en Azure
+    baseURL: process.env.BASE_URL || 'https://test-backend-acdghwgtbhh0bzee.canadacentral-01.azurewebsites.net/api'
   },
 
   auth: {
@@ -98,8 +97,11 @@ export default {
   },
 
   generate: {
-    dir: 'dist' // Azure espera los archivos estáticos en 'dist'
+    dir: 'dist' // Azure Static Web Apps espera la carpeta 'dist'
   },
 
-  build: {}
+  build: {
+    publicPath: '/dist/',
+    extractCSS: true
+  }
 }
