@@ -1,6 +1,10 @@
 import colors from 'vuetify/es5/util/colors'
-// First Commit to Azure
+
 export default {
+  // Configuración para Azure Static Web Apps
+  target: 'static', // Asegura que Nuxt genere archivos estáticos
+  ssr: false, // Desactiva el renderizado del lado del servidor
+
   head: {
     titleTemplate: '%s - frontend-node-firebase',
     title: 'frontend-node-firebase',
@@ -17,23 +21,29 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+
   css: [
     '@mdi/font/css/materialdesignicons.min.css'
   ],
-  plugins: [
-  ],
+
+  plugins: [],
+
   components: true,
+
   buildModules: [
     '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify'
   ],
+
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/auth-next'
   ],
+
   axios: {
-    baseURL: process.env.baseURL
+    baseURL: process.env.BASE_URL || 'https://test-backend-acdghwgtbhh0bzee.canadacentral-01.azurewebsites.net/api' // Base URL para llamadas a API en Azure
   },
+
   auth: {
     strategies: {
       local: {
@@ -60,6 +70,7 @@ export default {
       home: '/principal'
     }
   },
+
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
@@ -80,9 +91,15 @@ export default {
       iconfont: 'mdi'
     }
   },
+
   router: {
+    base: process.env.ROUTER_BASE || '/',
     middleware: ['auth']
   },
-  build: {
-  }
+
+  generate: {
+    dir: 'dist' // Azure espera los archivos estáticos en 'dist'
+  },
+
+  build: {}
 }
