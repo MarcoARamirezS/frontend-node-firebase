@@ -1,5 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
-
+// First Commit to Azure
 export default {
   head: {
     titleTemplate: '%s - frontend-node-firebase',
