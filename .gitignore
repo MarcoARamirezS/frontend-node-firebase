@@ -7,11 +7,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Asegúrate de que 'dist/' no está ignorado
-!.output/
-!.nuxt/
-!dist/
-
+dist
 
 # Runtime data
 pids
