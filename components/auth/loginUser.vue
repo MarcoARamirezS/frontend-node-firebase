@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" max-width="400">
+  <v-card class="mx-auto" max-width="400" color="blue lighten-5">
     <v-card-title class="text-h5">
       Iniciar Sesion
     </v-card-title>

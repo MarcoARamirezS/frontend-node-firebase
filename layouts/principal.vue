@@ -88,7 +88,7 @@ export default {
           title: 'Dashboard',
           icon: 'mdi-view-dashboard',
           path: '/principal',
-          roles: ['admin']
+          roles: ['admin', 'contabilidad']
         },
         {
           title: 'Configuración',
@@ -98,7 +98,7 @@ export default {
             {
               title: 'Usuarios',
               icon: 'mdi-account-multiple',
-              path: '/principal/configuracion/usuarios'
+              path: 'principal/configuracion/usuarios'
             },
             {
               title: 'Desbloquear Usuarios',
@@ -111,7 +111,7 @@ export default {
           title: 'Cerrar Sesión',
           icon: 'mdi-logout',
           path: '/',
-          roles: ['admin', 'coordinador', 'recursos']
+          roles: ['admin', 'coordinador', 'recursos', 'contabilidad']
         }
       ]
     }
@@ -121,7 +121,7 @@ export default {
       if (route === '/') {
         this.logout()
       } else {
-        this.$router.push({ name: route })
+        this.$router.push(route)
       }
     },
     canAccess (allowedRoles) {
