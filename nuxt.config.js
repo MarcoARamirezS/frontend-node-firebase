@@ -40,7 +40,8 @@ export default {
   ],
 
   axios: {
-    baseURL: process.env.BASE_URL || 'https://test-backend-acdghwgtbhh0bzee.canadacentral-01.azurewebsites.net/api'
+    // baseURL: process.env.BASE_URL || 'https://test-backend-acdghwgtbhh0bzee.canadacentral-01.azurewebsites.net/api'
+    baseURL: 'http://localhost:5050/api'
   },
 
   auth: {

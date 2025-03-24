@@ -5,59 +5,68 @@
       app
       color="#F8FAFC"
     >
-      <v-list dense>
-        <template v-for="(item, index) in items">
-          <v-list-item
-            v-if="!item.children && canAccess(item.roles)"
-            :key="`item-${index}`"
-            link
-            @click="goTo(item.path)"
-          >
-            <v-list-item-icon>
-              <v-icon color="blue">
-                {{ item.icon }}
-              </v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>
-                {{ item.title }}
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-group
-            v-else-if="canAccess(item.roles)"
-            :key="`group-${index}`"
-            no-action
-            prepend-icon="mdi-tools"
-            append-icon="mdi-cheron-down"
-          >
-            <template #activator>
+      <v-card elevation="1">
+        <v-list dense>
+          <v-divider class="my-2" />
+
+          <template v-for="(item, index) in items">
+            <v-list-item
+              v-if="!item.children && canAccess(item.roles)"
+              :key="`item-${index}`"
+              link
+              @click="goTo(item.path)"
+            >
+              <v-list-item-icon>
+                <v-icon color="blue">
+                  {{ item.icon }}
+                </v-icon>
+              </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>
                   {{ item.title }}
                 </v-list-item-title>
               </v-list-item-content>
-            </template>
-            <v-list-item
-              v-for="(child, cIndex) in item.children"
-              :key="`child-${index}-${cIndex}`"
-              link
-              @click="goTo(child.path)"
-            >
-              <v-list-item-icon>
-                <v-icon color="blue darkeen-3">
-                  {{ child.icon }}
-                </v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>
-                  {{ child.title }}
-                </v-list-item-title>
-              </v-list-item-content>
             </v-list-item>
-          </v-list-group>
-        </template>
-      </v-list>
+
+            <v-list-group
+              v-else-if="canAccess(item.roles)"
+              :key="`group-${index}`"
+              no-action
+              prepend-icon="mdi-tools"
+              append-icon="mdi-chevron-down"
+            >
+              <template #activator>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    {{ item.title }}
+                  </v-list-item-title>
+                </v-list-item-content>
+              </template>
+              <v-list-item
+                v-for="(child, cIndex) in item.children"
+                :key="`child-${index}-${cIndex}`"
+                link
+                @click="goTo(child.path)"
+              >
+                <v-list-item-icon>
+                  <v-icon color="blue darken-3">
+                    {{ child.icon }}
+                  </v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    {{ child.title }}
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list-group>
+
+            <v-divider v-if="item.title === 'Patients List'" :key="`divider-clinic-${index}`" class="my-2" />
+
+            <v-divider v-if="item.title === 'Account'" :key="`divider-settings-${index}`" class="my-2" />
+          </template>
+        </v-list>
+      </v-card>
     </v-navigation-drawer>
 
     <v-main>
@@ -86,12 +95,48 @@ export default {
       items: [
         {
           title: 'Dashboard',
-          icon: 'mdi-view-dashboard',
+          icon: 'mdi-chart-bar',
           path: '/principal',
-          roles: ['admin', 'contabilidad']
+          roles: ['admin', 'rh']
         },
         {
-          title: 'Configuración',
+          title: 'Doctor Appointment',
+          icon: 'mdi-calendar-plus-outline',
+          path: '/principal/doctor',
+          roles: ['admin', 'rh', 'secretaria']
+        },
+        {
+          title: 'Lab Appointment',
+          icon: 'mdi-flask-outline',
+          path: '/principal/laboratory',
+          roles: ['admin', 'rh', 'secretaria']
+        },
+        {
+          title: 'Patients List',
+          icon: 'mdi-account-multiple',
+          path: '/principal/patients',
+          roles: ['admin', 'rh', 'secretaria']
+        },
+        {
+          title: 'Clinic IP',
+          icon: 'mdi-home-outline',
+          path: '/principal/clinic',
+          roles: ['admin', 'rh', 'secretaria']
+        },
+        {
+          title: 'Billing',
+          icon: 'mdi-home-outline',
+          roles: ['admin', 'rh', 'secretaria'],
+          children: []
+        },
+        {
+          title: 'Account',
+          icon: 'mdi-account-outline',
+          path: '/principal/account',
+          roles: ['admin', 'rh', 'secretaria']
+        },
+        {
+          title: 'Settings',
           icon: 'mdi-tools',
           roles: ['admin'],
           children: [
@@ -111,7 +156,7 @@ export default {
           title: 'Cerrar Sesión',
           icon: 'mdi-logout',
           path: '/',
-          roles: ['admin', 'coordinador', 'recursos', 'contabilidad']
+          roles: ['admin', 'rh', 'secretaria', 'doctor']
         }
       ]
     }
